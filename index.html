@@ -7,13 +7,51 @@
     <link rel="stylesheet " href="css/style.css">
 </head>
 <body>
-    
 
-    <h1>Weather App - Setup Check </h1>
+  <header class="app-header">
+    <h1 class="app-title"><span aria-hidden="true">🌤️</span> Weather Forecast</h1>
+  </header>
 
-    <script src="js/api.js" defer></script>
-    <script src="js/ui.js" defer></script>
-    <script src="js/app.js" defer></script>
+  <main>
+    <section class="search-section">
+      <form id="search-form">
+        <label for="city-input">Search city</label>
+        <input
+          type="text"
+          id="city-input"
+          name="city"
+          placeholder="Enter city name..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit" id="search-button">Search</button>
+      </form>
+    </section>
 
+    <p id="error-message" class="error-message" hidden></p>
+
+    <p id="loading-indicator" class="loading-indicator" hidden>
+      Fetching weather...
+    </p>
+
+    <section id="current-weather" class="weather-card" aria-live="polite">
+      <!-- Filled dynamically by ui.js — Phase 9 -->
+    </section>
+
+    <section class="forecast-section">
+      <h2>5-Day Forecast</h2>
+      <div id="forecast-container" class="forecast-container">
+        <!-- Forecast cards injected dynamically by ui.js — Phase 11 -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Powered by OpenWeatherMap API</p>
+  </footer>
+
+  <script src="js/api.js" defer></script>
+  <script src="js/ui.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
