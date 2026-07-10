@@ -1,3 +1,111 @@
-body{
-    background-color: lightblue;
+/* ===== Design Tokens ===== */
+:root {
+  /* Colors */
+  --color-primary: #2b6cb0;
+  --color-primary-dark: #1a4971;
+  --color-bg: #f0f7ff;
+  --color-surface: #ffffff;
+  --color-text: #1a202c;
+  --color-text-muted: #4a5568;
+  --color-error: #c53030;
+  --color-border: #cbd5e0;
+
+  /* Typography */
+  --font-family-base: -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 2rem;
+
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Shape & depth */
+  --radius-sm: 4px;
+  --radius-lg: 16px;
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== Base Typography ===== */
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+}
+
+.app-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-lg);
+}
+
+.forecast-section h2 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ===== Form Elements ===== */
+input[type="text"] {
+  font: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+}
+
+button {
+  font: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* ===== Weather Card ===== */
+.weather-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+}
+
+/* ===== Status Messages ===== */
+.error-message {
+  color: var(--color-error);
+  margin: var(--spacing-md) 0;
+}
+
+.loading-indicator {
+  color: var(--color-text-muted);
+  margin: var(--spacing-md) 0;
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-xl);
 }
