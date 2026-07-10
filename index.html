@@ -15,7 +15,7 @@
   <main>
     <section class="search-section">
       <form id="search-form">
-        <label for="city-input">Search city</label>
+        <label for="city-input" class="sr-only">Search city</label>
         <input
           type="text"
           id="city-input"
@@ -41,7 +41,13 @@
     <section class="forecast-section">
       <h2>5-Day Forecast</h2>
       <div id="forecast-container" class="forecast-container">
-        <!-- Forecast cards injected dynamically by ui.js — Phase 11 -->
+      <!--TEMPORARY placeholder cards, for testing the Grid layout only.
+       These get deleted in Phase 11 once JS generates real cards from API data -->
+       <div class="forecast-day-card">Mon</div>
+       <div class="forecast-day-card">Tue</div>
+       <div class="forecast-day-card">Wed</div>
+       <div class="forecast-day-card">Thu</div>
+       <div class="forecast-day-card">Fri</div>
       </div>
     </section>
   </main>
