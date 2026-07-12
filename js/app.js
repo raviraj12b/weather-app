@@ -1,10 +1,9 @@
-// app.js — Orchestrator: listens for user events,
-// will coordinate api.js and ui.js in later phases.
+// app.js — Orchestrator: listens for user events, coordinates api.js and ui.js.
 
 const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
 
-function handleSearchSubmit(event) {
+async function handleSearchSubmit(event) {
   event.preventDefault();
 
   const city = cityInput.value.trim();
@@ -14,7 +13,12 @@ function handleSearchSubmit(event) {
     return;
   }
 
-  console.log('Searching for:', city);
+  try {
+    const data = await fetchCurrentWeather(city);
+    renderCurrentWeather(data);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 searchForm.addEventListener('submit', handleSearchSubmit);
