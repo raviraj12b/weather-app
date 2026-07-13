@@ -28,11 +28,12 @@
       </form>
     </section>
 
-    <p id="error-message" class="error-message" hidden></p>
+    <p id="error-message" class="error-message"role="alert" hidden></p>
 
-    <p id="loading-indicator" class="loading-indicator" hidden>
-      Fetching weather...
-    </p>
+    <div id ="loading-indicator" class="loading-indicator" role="status" hidden>
+      <span class="spinner" aria-hidden="true"></span>
+      <span>Fetching Weather...</span>
+    </div>
 
     <section id="current-weather" class="weather-card" aria-live="polite">
       <!-- Filled dynamically by ui.js — Phase 9 -->

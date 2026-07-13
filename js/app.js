@@ -2,6 +2,18 @@
 
 const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
+const errorMessage = document.getElementById('error-message');
+const loadingIndicator = document.getElementById('loading-indicator');
+
+function showError(message) {
+  errorMessage.textContent = message;
+  errorMessage.hidden = false;
+}
+
+function hideError() {
+  errorMessage.hidden = true;
+  errorMessage.textContent = '';
+}
 
 async function handleSearchSubmit(event) {
   event.preventDefault();
@@ -9,15 +21,24 @@ async function handleSearchSubmit(event) {
   const city = cityInput.value.trim();
 
   if (city === '') {
-    console.log('Please enter a city name.');
+    showError('Please enter a city name.');
     return;
   }
+
+  hideError();
+  loadingIndicator.hidden = false;
 
   try {
     const data = await fetchCurrentWeather(city);
     renderCurrentWeather(data);
   } catch (error) {
-    console.log(error.message);
+    if (error instanceof TypeError) {
+      showError('Network error. Please check your internet connection.');
+    } else {
+      showError(error.message);
+    }
+  } finally {
+    loadingIndicator.hidden = true;
   }
 }
 
