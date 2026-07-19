@@ -25,6 +25,8 @@ A responsive weather forecast web application built with vanilla HTML, CSS, and 
 3. Open `index.html` in a browser, or serve it locally (e.g., VS Code's Live Server extension)
 
 ## Project Structure
+
+
 weather-app/
 ├── index.html
 ├── css/style.css
