@@ -284,3 +284,10 @@ button:hover {
   color: var(--color-text-muted);
   text-transform: capitalize;
 }
+
+/* ===== Disabled State ===== */
+input:disabled,
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

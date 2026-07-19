@@ -2,8 +2,11 @@
 
 const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
+const searchButton = document.getElementById('search-button');
 const errorMessage = document.getElementById('error-message');
 const loadingIndicator = document.getElementById('loading-indicator');
+
+let isFetching = false;
 
 function showError(message) {
   errorMessage.textContent = message;
@@ -15,18 +18,32 @@ function hideError() {
   errorMessage.textContent = '';
 }
 
+function setFetchingState(fetching) {
+  isFetching = fetching;
+  cityInput.disabled = fetching;
+  searchButton.disabled = fetching;
+  loadingIndicator.hidden = !fetching;
+}
+
 async function handleSearchSubmit(event) {
   event.preventDefault();
+
+  if (isFetching) {
+    return;
+  }
 
   const city = cityInput.value.trim();
 
   if (city === '') {
     showError('Please enter a city name.');
+    cityInput.focus();
     return;
   }
 
   hideError();
-  loadingIndicator.hidden = false;
+  setFetchingState(true);
+
+  let hadError = false;
 
   try {
     const [currentData, forecastData] = await Promise.all([
@@ -37,13 +54,17 @@ async function handleSearchSubmit(event) {
     renderCurrentWeather(currentData);
     renderForecast(getFiveDayForecast(forecastData));
   } catch (error) {
+    hadError = true;
     if (error instanceof TypeError) {
       showError('Network error. Please check your internet connection.');
     } else {
       showError(error.message);
     }
   } finally {
-    loadingIndicator.hidden = true;
+    setFetchingState(false);
+    if (hadError) {
+      cityInput.focus();
+    }
   }
 }
 
