@@ -29,8 +29,13 @@ async function handleSearchSubmit(event) {
   loadingIndicator.hidden = false;
 
   try {
-    const data = await fetchCurrentWeather(city);
-    renderCurrentWeather(data);
+    const [currentData, forecastData] = await Promise.all([
+      fetchCurrentWeather(city),
+      fetchForecast(city),
+    ]);
+
+    renderCurrentWeather(currentData);
+    renderForecast(getFiveDayForecast(forecastData));
   } catch (error) {
     if (error instanceof TypeError) {
       showError('Network error. Please check your internet connection.');

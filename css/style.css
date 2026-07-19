@@ -263,3 +263,24 @@ button:hover {
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
+
+.forecast-day-label {
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.forecast-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.forecast-temp-range {
+  font-weight: 700;
+  margin: var(--spacing-xs) 0;
+}
+
+.forecast-description {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}

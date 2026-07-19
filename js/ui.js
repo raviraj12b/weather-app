@@ -56,3 +56,28 @@ function renderCurrentWeather(data) {
     </div>
   `;
 }
+const forecastContainer = document.getElementById('forecast-container');
+
+function formatDayLabel(dateString) {
+  const date = new Date(`${dateString}T12:00:00`);
+  return date.toLocaleDateString(undefined, { weekday: 'long' });
+}
+
+function renderForecast(forecastList) {
+  forecastContainer.innerHTML = forecastList
+    .map((day) => {
+      return `
+        <div class="forecast-day-card">
+          <p class="forecast-day-label">${formatDayLabel(day.date)}</p>
+          <img
+            src="https://openweathermap.org/img/wn/${day.icon}.png"
+            alt="${day.description}"
+            class="forecast-icon"
+          />
+          <p class="forecast-temp-range">${day.maxTemp}° / ${day.minTemp}°</p>
+          <p class="forecast-description">${day.description}</p>
+        </div>
+      `;
+    })
+    .join('');
+}
