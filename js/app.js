@@ -6,6 +6,9 @@ const searchButton = document.getElementById('search-button');
 const errorMessage = document.getElementById('error-message');
 const loadingIndicator = document.getElementById('loading-indicator');
 
+const RECENT_SEARCHES_KEY = 'recentSearches';
+const MAX_RECENT_SEARCHES = 5;
+
 let isFetching = false;
 
 function showError(message) {
@@ -25,18 +28,20 @@ function setFetchingState(fetching) {
   loadingIndicator.hidden = !fetching;
 }
 
-async function handleSearchSubmit(event) {
-  event.preventDefault();
+function getRecentSearches() {
+  const stored = localStorage.getItem(RECENT_SEARCHES_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
 
+function saveRecentSearch(city) {
+  const existing = getRecentSearches();
+  const filtered = existing.filter((item) => item.toLowerCase() !== city.toLowerCase());
+  const updated = [city, ...filtered].slice(0, MAX_RECENT_SEARCHES);
+  localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(updated));
+}
+
+async function performSearch(city) {
   if (isFetching) {
-    return;
-  }
-
-  const city = cityInput.value.trim();
-
-  if (city === '') {
-    showError('Please enter a city name.');
-    cityInput.focus();
     return;
   }
 
@@ -53,6 +58,9 @@ async function handleSearchSubmit(event) {
 
     renderCurrentWeather(currentData);
     renderForecast(getFiveDayForecast(forecastData));
+
+    saveRecentSearch(currentData.name);
+    renderRecentSearches(getRecentSearches());
   } catch (error) {
     hadError = true;
     if (error instanceof TypeError) {
@@ -68,4 +76,29 @@ async function handleSearchSubmit(event) {
   }
 }
 
+async function handleSearchSubmit(event) {
+  event.preventDefault();
+
+  const city = cityInput.value.trim();
+
+  if (city === '') {
+    showError('Please enter a city name.');
+    cityInput.focus();
+    return;
+  }
+
+  await performSearch(city);
+}
+
 searchForm.addEventListener('submit', handleSearchSubmit);
+
+recentSearchesList.addEventListener('click', (event) => {
+  const button = event.target.closest('.recent-search-btn');
+  if (!button) return;
+
+  const city = button.textContent;
+  cityInput.value = city;
+  performSearch(city);
+});
+
+renderRecentSearches(getRecentSearches());

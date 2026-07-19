@@ -81,3 +81,20 @@ function renderForecast(forecastList) {
     })
     .join('');
 }
+
+const recentSearchesSection = document.getElementById('recent-searches-section');
+const recentSearchesList = document.getElementById('recent-searches-list');
+
+function renderRecentSearches(cities) {
+  if (cities.length === 0) {
+    recentSearchesSection.hidden = true;
+    recentSearchesList.innerHTML = '';
+    return;
+  }
+
+  recentSearchesSection.hidden = false;
+
+  recentSearchesList.innerHTML = cities
+    .map((city) => `<li><button type="button" class="recent-search-btn">${city}</button></li>`)
+    .join('');
+}
