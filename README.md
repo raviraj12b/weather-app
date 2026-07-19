@@ -26,7 +26,7 @@ A responsive weather forecast web application built with vanilla HTML, CSS, and 
 
 ## Project Structure
 
-
+```
 weather-app/
 ├── index.html
 ├── css/style.css
@@ -37,7 +37,7 @@ weather-app/
 │   └── config.example.js
 ├── TESTING.md
 └── README.md
-
+```
 ## Status
 
 ✅ All core PRD requirements complete — see `TESTING.md` for full acceptance criteria coverage.
