@@ -264,6 +264,7 @@ button:hover {
   letter-spacing: 0.03em;
 }
 
+/* ===== Forecast Card Content ===== */
 .forecast-day-label {
   font-weight: 700;
   margin-bottom: var(--spacing-xs);
@@ -328,4 +329,14 @@ button:disabled {
 .recent-search-btn:hover {
   background-color: var(--color-surface);
   border-color: var(--color-primary);
+}
+
+/* ===== Focus States ===== */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary-dark);
+  outline-offset: 2px;
 }
