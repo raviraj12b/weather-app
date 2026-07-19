@@ -8,9 +8,16 @@ const METERS_PER_KM = 1000;   // OpenWeatherMap visibility (m) -> km
 
 const currentWeatherSection = document.getElementById('current-weather');
 
-function formatTime(unixSeconds) {
-  const date = new Date(unixSeconds * MS_PER_SECOND);
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+function formatTime(unixSeconds, timezoneOffsetSeconds) {
+  // Shift the UTC instant by the city's own UTC offset, then format it
+  // while telling the formatter to treat the result as UTC — this displays
+  // the city's own local clock time, regardless of the viewer's timezone.
+  const shiftedDate = new Date((unixSeconds + timezoneOffsetSeconds) * MS_PER_SECOND);
+  return shiftedDate.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'UTC',
+  });
 }
 
 function renderCurrentWeather(data) {
@@ -24,8 +31,8 @@ function renderCurrentWeather(data) {
   const windSpeedKmh = Math.round(data.wind.speed * MPS_TO_KMH);
   const pressure = data.main.pressure;
   const visibilityKm = (data.visibility / METERS_PER_KM).toFixed(1);
-  const sunrise = formatTime(data.sys.sunrise);
-  const sunset = formatTime(data.sys.sunset);
+  const sunrise = formatTime(data.sys.sunrise, data.timezone);
+  const sunset = formatTime(data.sys.sunset, data.timezone);
   const currentDate = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
